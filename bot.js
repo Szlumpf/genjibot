@@ -1,10 +1,6 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
 
-/*function login (){
-  client.login('MzI3ODkxNjY0NzkyMTkwOTc2.DC7-1Q.EdC-HyVoCg-Ifrqvr5aLB1WK6WI');
-}*/
-
 client.on('ready', () => {
   console.log('I am ready!');
 });
@@ -76,4 +72,4 @@ client.on('message', message => {
   }
 });*/
 
-client.login('MzI3ODkxNjY0NzkyMTkwOTc2.DC7-1Q.EdC-HyVoCg-Ifrqvr5aLB1WK6WI');
+client.login(token);
