@@ -1,0 +1,28 @@
+{
+  "name": "github",
+  "version": "1.0.0",
+  "description": "genji bot",
+  "main": "bot.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Szlumpf/genjibot.git"
+  },
+  "keywords": [
+    "genji",
+    "bot",
+    "node",
+    "js"
+  ],
+  "author": "Szlumpf",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Szlumpf/genjibot/issues"
+  },
+  "homepage": "https://github.com/Szlumpf/genjibot#readme",
+  "dependencies": {
+    "discord.js": "^11.2.1"
+  }
+}
