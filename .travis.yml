@@ -3,6 +3,6 @@ node_js:
   - "iojs"
   - "6"
 before_script:
-  -npm install
+  - npm install
 script:
-  -node bot.js
+  - node bot.js
