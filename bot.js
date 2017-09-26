@@ -9,7 +9,13 @@ client.on('ready', () => {
   console.log('I am ready!');
 });
 
-//var commands =
+client.on('message', message => {
+  if (message.content === 'ping')
+  {
+    message.reply('pong');
+    //client.message('a');
+  }
+});
 
 client.on('message', message => {
   if (message.content === '!menda')
