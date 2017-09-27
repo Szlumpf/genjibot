@@ -4,7 +4,7 @@
   "description": "genji bot",
   "main": "bot.js",
   "scripts": {
-    "test": "test"
+    "test": "test",
     "start": "node bot.js"
   },
   "repository": {
