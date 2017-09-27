@@ -3,13 +3,22 @@ const client = new Discord.Client();
 
 client.on('ready', () => {
   console.log('I am ready!');
+  setTimeout(logg, logtime);
 });
 
+var logtime = 1000 * 60 * 1;
+var timediff = logtime/(1000*60); 
+var minutes = 0;
+function logg() {
+  minutes = timediff + minutes;
+  //console.log("Bot working for " + minutes + " minutes");
+  setTimeout(logg, logtime);
+}
+
 client.on('message', message => {
-  if (message.content === 'ping')
+  if (message.content === '!uptime')
   {
-    message.reply('pong');
-    //client.message('a');
+    message.reply("Working for: " + minutes);
   }
 });
 
@@ -73,14 +82,3 @@ client.on('message', message => {
 });*/
 
 client.login(process.env.token);
-//aas
-var logtime = 1000 * 60 * 5;
-var timediff = logtime/(1000*60); 
-var minutes = 0;
-function logg() {
-  minutes = timediff + minutes;
-  console.log("Bot working for " + minutes + " minutes");
-  setTimeout(logg, logtime);
-}
-
-setTimeout(logg, logtime);
