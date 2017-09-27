@@ -74,9 +74,12 @@ client.on('message', message => {
 
 client.login(process.env.token);
 //a
-var logtime = 1000 * 60 * 3;
+var logtime = 1000 * 60 * 5;
+var timediff = logtime/1000; 
+var minutes = 0;
 function logg() {
-  console.log("Keep the logs");
+  minutes = timediff + minutes;
+  console.log("Bot working for " + minutes + " minutes");
   setTimeout(logg, logtime);
 }
 
