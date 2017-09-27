@@ -74,9 +74,10 @@ client.on('message', message => {
 
 client.login(process.env.token);
 
+var logtime = 1000 * 60 * 3;
 function logg() {
-  console.log("Kep the logs");
-  setTimeout(logg, 30000);
+  console.log("Keep the logs");
+  setTimeout(logg, logtime);
 }
 
-setTimeout(logg, 30000);
+setTimeout(logg, logtime);
