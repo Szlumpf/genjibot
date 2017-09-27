@@ -73,7 +73,7 @@ client.on('message', message => {
 });*/
 
 client.login(process.env.token);
-//a
+//aas
 var logtime = 1000 * 60 * 5;
 var timediff = logtime/1000; 
 var minutes = 0;
