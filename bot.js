@@ -18,7 +18,7 @@ function logg() {
 client.on('message', message => {
   if (message.content === '!uptime')
   {
-    message.reply("Working for: " + minutes);
+    message.reply("Working for: " + minutes + "minutes");
   }
 });
 
