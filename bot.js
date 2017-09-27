@@ -73,7 +73,7 @@ client.on('message', message => {
 });*/
 
 client.login(process.env.token);
-
+//a
 var logtime = 1000 * 60 * 3;
 function logg() {
   console.log("Keep the logs");
