@@ -75,7 +75,7 @@ client.on('message', message => {
 client.login(process.env.token);
 //aas
 var logtime = 1000 * 60 * 5;
-var timediff = logtime/1000; 
+var timediff = logtime/(1000*60); 
 var minutes = 0;
 function logg() {
   minutes = timediff + minutes;
