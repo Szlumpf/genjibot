@@ -66,7 +66,7 @@ exports.setReminder = function(message)
       var time = hours*60+mins;
       var now = new Date();
       var time2 = now.getHours()*60 + now.getMinutes();
-      var timeDiff = time - time2 - subHours;
+      var timeDiff = time - time2 - subHours*60;
       if (timeDiff > 0)
       {
         var reminderMsg = msg.substring(6, msg.length);
