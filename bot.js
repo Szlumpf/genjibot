@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
 const reminder = require('./reminder.js');
+const yt = require('./youtube.js');
 
 client.on('ready', () => {
   console.log('I am ready!');
@@ -69,6 +70,14 @@ client.on('message', message => {
   if (message.content.startsWith("!remind"))
   {
     reminder.setReminder(message);
+  }
+});
+
+client.on('message', message => {
+  var command = "!nightcore";
+  if (message.content.startsWith(command))
+  {
+    yt.findNightcore(message, message.content.slice(command.length+1, message.content.length));
   }
 });
 
