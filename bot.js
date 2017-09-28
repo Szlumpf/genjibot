@@ -7,8 +7,8 @@ client.on('ready', () => {
 });
 
 var logtime = 1000 * 60 * 1;
-var timediff = logtime/(1000*60); 
-var minutes = 0;
+var timediff = logtime/(1000*60);
+var minutes = 957;
 function logg() {
   minutes = timediff + minutes;
   //console.log("Bot working for " + minutes + " minutes");
@@ -18,7 +18,10 @@ function logg() {
 client.on('message', message => {
   if (message.content === '!uptime')
   {
-    message.reply("Working for: " + minutes + "minutes");
+    let mins = minutes % 60;
+    let hours = ((minutes-mins)/60) % (24);
+    let days = (minutes-hours*60-mins) / (60*24);
+    message.reply("Working for: " + days + " days " + hours + " hours " + mins + " minutes");
   }
 });
 
