@@ -76,7 +76,10 @@ exports.setReminder = function(message)
         setTimeout(function() {remind(message, reminderMsg)}, 1000*60*timeDiff);
         let minss = timeDiff % 60;
         let hourss = ((timeDiff-minss)/60) % (24);
-        message.reply("Reminder set at " + hours + ":" + mins + " ,which is " + hourss + " hours and " + minss + " minutes from now, with message :" + reminderMsg);
+        let timeLeft = minss + " minutes";
+        if (hourss > 0)
+          timeLeft = hourss + " hours and " + timeLeft;
+        message.reply("Reminder set at " + hours + ":" + mins + " ,which is " + timeLeft + " minutes from now, with message : " + reminderMsg);
       }
       else {
         message.reply("Wrong time, now is " + now.getHours() + ":" + now.getMinutes() + ", your time is " + hours +":"+mins);
