@@ -1,14 +1,16 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
+const reminder = require('./reminder.js');
 
 client.on('ready', () => {
   console.log('I am ready!');
   setTimeout(logg, logtime);
+  console.log(reminder.add(5,2));
 });
 
 var logtime = 1000 * 60 * 1;
 var timediff = logtime/(1000*60);
-var minutes = 957;
+var minutes = 21*60+46;
 function logg() {
   minutes = timediff + minutes;
   //console.log("Bot working for " + minutes + " minutes");
@@ -60,6 +62,13 @@ client.on('message', message => {
             result = result + currentChar + ' ';
     }
     message.channel.send(result);
+  }
+});
+
+client.on('message', message => {
+  if (message.content.startsWith("!remind"))
+  {
+    reminder.setReminder(message);
   }
 });
 
