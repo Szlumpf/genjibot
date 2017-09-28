@@ -29,7 +29,6 @@ function argsFromMessage(msg)
     }
     if((char == " " && !quote)|| i+1==msg.length)
     {
-      console.log("dodaje:"+arg);
       args[n]=arg;
       n++;
       arg="";
@@ -67,7 +66,11 @@ exports.setReminder = function(message)
       var now = new Date();
       var time2 = now.getHours()*60 + now.getMinutes();
       var timeDiff = time - time2 - subHours*60;
-      if (timeDiff > 0)
+      if (hours > 23 || hours < 0 || mins > 59 || mins < 0)
+      {
+        message.reply("Wrong time");
+      }
+      else if (timeDiff > 0)
       {
         var reminderMsg = msg.substring(6, msg.length);
         setTimeout(function() {remind(message, reminderMsg)}, 1000*60*timeDiff);
@@ -83,7 +86,7 @@ exports.setReminder = function(message)
     }
   }
   else {
-    message.reply("No message specified");
+    message.reply("Error write !remind hh:mm message");
     message.reply(msg);
   }
 
