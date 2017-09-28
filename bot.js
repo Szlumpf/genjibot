@@ -10,7 +10,7 @@ client.on('ready', () => {
 
 var logtime = 1000 * 60 * 1;
 var timediff = logtime/(1000*60);
-var minutes = 21*60+52;
+var minutes = 22*60+0;
 function logg() {
   minutes = timediff + minutes;
   //console.log("Bot working for " + minutes + " minutes");
