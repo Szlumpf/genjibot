@@ -60,12 +60,13 @@ exports.setReminder = function(message)
     {
       //12:30
       //0,1,2,3,4
+      var subHours = parseInt(process.env.subhours);
       var hours = parseInt(args[0].substring(0,2));
       var mins = parseInt(args[0].substring(3,5));
       var time = hours*60+mins;
       var now = new Date();
       var time2 = now.getHours()*60 + now.getMinutes();
-      var timeDiff = time - time2;
+      var timeDiff = time - time2 - subHours;
       if (timeDiff > 0)
       {
         var reminderMsg = msg.substring(6, msg.length);
