@@ -6,9 +6,9 @@ exports.timeStringFromMins = function (minutes)
   let mins = minutes % 60;
   let hours = ((minutes-mins)/60) % (24);
   let days = (minutes-hours*60-mins) / (60*24);
-  console.log("mins:" + mins);
-  console.log("hours:" + hours);
-  console.log("days:" + days);
+  //console.log("mins:" + mins);
+  //console.log("hours:" + hours);
+  //console.log("days:" + days);
   if (days > 0)
   {
     timeString += days + " day";

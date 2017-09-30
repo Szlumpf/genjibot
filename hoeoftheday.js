@@ -10,9 +10,9 @@ function pickHoe(message)
 {
   var guildMembers = message.guild.members.array();
   var rand = Math.floor(Math.random()*(guildMembers.length ));
-  console.log(guildMembers[rand].user.id);
-  console.log(guildMembers[rand].user.tag);
-  console.log(rand);
+  //console.log(guildMembers[rand].user.id);
+  //console.log(guildMembers[rand].user.tag);
+  //console.log(rand);
   /*for (var i = 0 ; i < 100 ; i++)
   {
     console.log(Math.floor(Math.random()*(guildMembers.length)));
@@ -28,7 +28,7 @@ function pickHoe(message)
 exports.hoeoftheday = function (message)
 {
   var newHoePicked = false;
-  if(true || typeof hoes[message.guild.id] === 'undefined')
+  if(typeof hoes[message.guild.id] === 'undefined')
   {
     pickHoe(message);
     newHoePicked = true;

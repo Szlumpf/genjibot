@@ -88,8 +88,8 @@ client.on('message', message => {
     let args = formater.argsFromMessage(message.content.slice(command.length));
     let size = args.length;
     let rand = Math.floor(Math.random()*size);
-    console.log("size:"+size);
-    console.log("rand:"+rand);
+    //console.log("size:"+size);
+    //console.log("rand:"+rand);
     message.reply("i chose " + args[rand]);
   }
 });
