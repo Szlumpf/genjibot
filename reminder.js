@@ -76,6 +76,10 @@ exports.setReminder = function(message)
       {
         var reminderMsg = msg.substring(6, msg.length);
         setTimeout(function() {remind(message, reminderMsg)}, 1000*60*timeDiff);
+        if ((hours + "").length == 1)
+          hours = "0" + hours;
+        if ((mins + "").length == 1)
+          mins = "0" + mins;
         message.reply("Reminder set at " + hours + ":" + mins + " ,which is " + formater.timeStringFromMins(timeDiff) + "from now, with message : " + reminderMsg);
       }
       else {
