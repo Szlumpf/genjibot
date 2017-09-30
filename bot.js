@@ -85,8 +85,9 @@ client.on('message', message => {
   let command = "!rand";
   if (message.content.startsWith(command))
   {
-    let args = formater.argsFromMessage(message.content.slice(command.length));
+    let args = formater.argsFromMessage(message.content.slice(command.length + 1));
     let size = args.length;
+    console.log("msg:"+message.content.slice(1 + command.length));
     let rand = Math.floor(Math.random()*size);
     //console.log("size:"+size);
     //console.log("rand:"+rand);
