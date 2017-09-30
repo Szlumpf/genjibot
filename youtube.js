@@ -40,26 +40,51 @@ exports.findNightcore = function (message, link)
     {
       try
       {
+        console.log("Yt is link");
         var vidName = JSON.parse(resp)["items"][0]["snippet"]["title"];
         vidName = vidName + " nightcore";
+        console.log("Found video:" + vidName);
+        httpGetAsync(url+vidName, function (resp)
+        {
+          try
+          {
+            var nightcoreLink = JSON.parse(resp)["items"][0]["id"]["videoId"];
+            nightcoreLink = ytLink + nightcoreLink;
+            console.log("Found nightore:" + nightcoreLink);
+            message.channel.send(nightcoreLink);
+          } catch (err)
+          {
+            console.log(err);
+            console.log(resp);
+            message.channel.send("No video found");
+          }
+        });
       } catch (err)
       {
           console.log(err);
+          console.log(resp);
           message.channel.send("No video found");
       }
-      httpGetAsync(url+vidName, function (resp)
-      {
-        var nightcoreLink = JSON.parse(resp)["items"][0]["id"]["videoId"];
-        nightcoreLink = ytLink + nightcoreLink;
-        //console.log(nightcoreLink);
-        //return nightcoreLink;
-        message.channel.send(nightcoreLink);
-      });
     });
   }
   else
   {
-
+    httpGetAsync(url+link, function (resp)
+    {
+      try
+      {
+        console.log("Yt is not link");
+        var nightcoreLink = JSON.parse(resp)["items"][0]["id"]["videoId"];
+        nightcoreLink = ytLink + nightcoreLink;
+        console.log("Found nightore:" + nightcoreLink);
+        message.channel.send(nightcoreLink);
+      } catch (err)
+      {
+        console.log(err);
+        console.log(resp);
+        message.channel.send("No video found");
+      }
+    });
   }
 }
 //findNightcore("https://www.youtube.com/watch?v=1ekZEVeXwek");
