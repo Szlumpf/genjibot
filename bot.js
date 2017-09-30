@@ -79,6 +79,19 @@ client.on('message', message => {
   }
 });
 
+client.on('message', message => {
+  var command = "!rand";
+  if (message.content.startsWith(command))
+  {
+    let args = formater.argsFromMessage(message.content.slice(command.length));
+    let size = args.length-1;
+    let rand = Math.floor(Math.random()*size) + 1;
+    console.log("size:"+size);
+    console.log("rand:"+rand);
+    message.reply("i chose " + args[rand]);
+  }
+});
+
 /*client.on('message', message => {
   if (message.content.substr(0,10).toLowerCase() === '!pickagame')
   {

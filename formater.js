@@ -34,3 +34,31 @@ exports.timeStringFromMins = function (minutes)
     timeString="less than minute ";
   return timeString;
 }
+
+exports.argsFromMessage = function (msg)
+{
+  var n, i, char, arg="";
+  var quote=false;
+  var args = new Array();
+  var goodChar=true;
+  for(i=0, n=0;i<msg.length;i++)
+  {
+    char=msg.charAt(i);
+    goodChar=(char!="\"");
+    if (char == "\"")
+    {
+      quote=!quote;
+    }
+	if (goodChar && (char != " " || quote))
+    {
+      arg=arg+char;
+    }
+    if((char == " " && !quote)|| i+1==msg.length)
+    {
+      args[n]=arg;
+      n++;
+      arg="";
+    }
+  }
+  return args;
+}
