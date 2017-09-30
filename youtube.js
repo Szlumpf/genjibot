@@ -69,7 +69,7 @@ exports.findNightcore = function (message, link)
   }
   else
   {
-    httpGetAsync(url+link, function (resp)
+    httpGetAsync(url+link+" nightcore", function (resp)
     {
       try
       {
