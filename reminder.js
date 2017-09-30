@@ -55,7 +55,7 @@ exports.setReminder = function(message)
         message.reply("Reminder set at " + hours + ":" + mins + " ,which is " + formater.timeStringFromMins(timeDiff) + "from now, with message : " + reminderMsg);
       }
       else {
-        message.reply("Wrong time, now is " + now.getHours() + ":" + now.getMinutes() + ", your time is " + hours +":"+mins);
+        message.reply("Wrong time, now is " + (now.getHours()+subHours) + ":" + now.getMinutes() + ", your time is " + hours +":"+mins);
       }
     } catch (err)
     {

@@ -35,11 +35,11 @@ exports.timeStringFromMins = function (minutes)
   return timeString;
 }
 
-exports.argsFromMessage = function (msg)
+exports.argsFromMessage = function (msg, delimiter = " ")
 {
   var n, i, char, arg="";
   var quote=false;
-  var args = new Array();
+  var args = [];
   var goodChar=true;
   for(i=0, n=0;i<msg.length;i++)
   {
@@ -49,11 +49,11 @@ exports.argsFromMessage = function (msg)
     {
       quote=!quote;
     }
-	if (goodChar && (char != " " || quote))
+	if (goodChar && (char != delimiter || quote))
     {
       arg=arg+char;
     }
-    if((char == " " && !quote)|| i+1==msg.length)
+    if((char == delimiter && !quote)|| i+1==msg.length)
     {
       args[n]=arg;
       n++;

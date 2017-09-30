@@ -3,11 +3,13 @@ const client = new Discord.Client();
 const reminder = require('./reminder.js');
 const yt = require('./youtube.js');
 const formater = require('./formater.js');
+const hotd = require('./hoeoftheday.js');
 
 client.on('ready', () => {
   console.log('I am ready!');
   setTimeout(logg, logtime);
   console.log(reminder.add(5,2));
+  hotd.setup();
 });
 
 var logtime = 1000 * 60 * 1;
@@ -72,7 +74,7 @@ client.on('message', message => {
 });
 
 client.on('message', message => {
-  var command = "!nightcore";
+  let command = "!nightcore";
   if (message.content.startsWith(command))
   {
     yt.findNightcore(message, message.content.slice(command.length+1, message.content.length));
@@ -80,16 +82,22 @@ client.on('message', message => {
 });
 
 client.on('message', message => {
-  var command = "!rand";
+  let command = "!rand";
   if (message.content.startsWith(command))
   {
     let args = formater.argsFromMessage(message.content.slice(command.length));
-    let size = args.length-1;
-    let rand = Math.floor(Math.random()*size) + 1;
+    let size = args.length;
+    let rand = Math.floor(Math.random()*size);
     console.log("size:"+size);
     console.log("rand:"+rand);
     message.reply("i chose " + args[rand]);
   }
+});
+
+client.on('message', message => {
+  let command = "!hoeoftheday";
+  if (message.content === command)
+    hotd.hoeoftheday(message);
 });
 
 /*client.on('message', message => {
