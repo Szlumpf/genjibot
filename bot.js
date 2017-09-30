@@ -2,6 +2,7 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 const reminder = require('./reminder.js');
 const yt = require('./youtube.js');
+const formater = require('./formater.js');
 
 client.on('ready', () => {
   console.log('I am ready!');
@@ -11,7 +12,7 @@ client.on('ready', () => {
 
 var logtime = 1000 * 60 * 1;
 var timediff = logtime/(1000*60);
-var minutes = 22*60+0;
+var minutes = 0;
 function logg() {
   minutes = timediff + minutes;
   //console.log("Bot working for " + minutes + " minutes");
@@ -21,10 +22,7 @@ function logg() {
 client.on('message', message => {
   if (message.content === '!uptime')
   {
-    let mins = minutes % 60;
-    let hours = ((minutes-mins)/60) % (24);
-    let days = (minutes-hours*60-mins) / (60*24);
-    message.reply("Working for: " + days + " days " + hours + " hours " + mins + " minutes");
+    message.reply("Working for: " + formater.timeStringFromMins(minutes));
   }
 });
 

@@ -1,3 +1,5 @@
+const formater = require('./formater.js');
+
 exports.add = function(a,b)
 {
   console.log("dziala");
@@ -74,12 +76,7 @@ exports.setReminder = function(message)
       {
         var reminderMsg = msg.substring(6, msg.length);
         setTimeout(function() {remind(message, reminderMsg)}, 1000*60*timeDiff);
-        let minss = timeDiff % 60;
-        let hourss = ((timeDiff-minss)/60) % (24);
-        let timeLeft = minss + " minutes";
-        if (hourss > 0)
-          timeLeft = hourss + " hours and " + timeLeft;
-        message.reply("Reminder set at " + hours + ":" + mins + " ,which is " + timeLeft + " minutes from now, with message : " + reminderMsg);
+        message.reply("Reminder set at " + hours + ":" + mins + " ,which is " + formater.timeStringFromMins(timeDiff) + "from now, with message : " + reminderMsg);
       }
       else {
         message.reply("Wrong time, now is " + now.getHours() + ":" + now.getMinutes() + ", your time is " + hours +":"+mins);
