@@ -1,7 +1,7 @@
 var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 
 var key = process.env.ytkey;
-var url = "https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=2&key="+key + "&q=";
+var url = "https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=2&key="+key + "&type=video&q=";
 
 const formater = require('./formater.js');
 
@@ -113,6 +113,7 @@ exports.findVideo = function (message, link)
       try
       {
         console.log("Yt is not link");
+        console.log(resp);
         var videoLink = JSON.parse(resp)["items"][0]["id"]["videoId"];
         videoLink = ytLink + videoLink;
         console.log("Found viedo:" + videoLink);
