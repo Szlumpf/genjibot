@@ -1,37 +1,78 @@
 const formater = require('./formater.js');
 const fs = require('fs');
+var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 var hoes = [];
 
 exports.setup = function ()
 {
-  fs.readFile('./hoes.txt', 'utf8', function (err,data) {
+  /*fs.readFile('./hoes.txt', 'utf8', function (err,data) {
   if (err) {
     return console.log(err);
-  }
-  var hz = formater.argsFromMessage(data, "\n");
-  for (var i=0; i<hz.length/3; i++)
-  {
-    hoes[hz[i]]=[];
-    hoes[hz[i]].id=hz[i+1];
-    hoes[hz[i]].date=hz[i+2];
-  }
+  }*/
+  var fileMenagement = process.env.fileMenagement;
+  httpGetAsync(fileMenagement+"&type=read", function (resp) {
+    try
+    {
+      console.log("Recived:"+resp);
+      var hz = formater.argsFromMessage(resp, " ");
+      if (hz.length>2)
+      {
+        for (var i=0; i<hz.length/3; i++)
+        {
+          hoes[hz[i]]=[];
+          hoes[hz[i]].id=hz[i+1];
+          hoes[hz[i]].date=hz[i+2];
+        }
+      }
+    }catch (err)
+    {
+      console.log(err);
+      hoes=[];
+    }
+
   });
+}
+
+function httpGetAsync(theUrl, callback)
+{
+  //console.log(theUrl);
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.onreadystatechange = function() {
+        if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+            callback(xmlHttp.responseText);
+    }
+    xmlHttp.open("GET", theUrl, true); // true for asynchronous
+    xmlHttp.send(null);
 }
 
 function saveHoes (hoes)
 {
   var hoesFileContents = "";
+  var delimiter = "+";
   for (var hoe in hoes) {
-    hoesFileContents += hoe + "\n";
-    hoesFileContents += hoes[hoe].id   + "\n";
-    hoesFileContents += hoes[hoe].date + "\n";
+    hoesFileContents += hoe + delimiter;
+    hoesFileContents += hoes[hoe].id   + delimiter;
+    hoesFileContents += hoes[hoe].date + delimiter;
   }
   hoesFileContents = hoesFileContents.slice(0, -1);
+  /*
   fs.writeFile("./hoes.txt", hoesFileContents, function(err) {
   if(err) {
       return console.log(err);
   }
   console.log("The file was saved!");
+  });*/
+  var fileMenagement = process.env.fileMenagement;
+  console.log("Sending:"+hoesFileContents);
+  httpGetAsync(fileMenagement+"&type=write&data="+hoesFileContents, function (resp) {
+    try
+    {
+
+    }catch (err)
+    {
+      console.log(err);
+    }
+
   });
 }
 
