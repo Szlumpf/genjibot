@@ -82,6 +82,14 @@ client.on('message', message => {
 });
 
 client.on('message', message => {
+  let command = "!yt";
+  if (message.content.startsWith(command))
+  {
+    yt.findVideo(message, message.content.slice(command.length+1, message.content.length));
+  }
+});
+
+client.on('message', message => {
   let command = "!rand";
   if (message.content.startsWith(command))
   {

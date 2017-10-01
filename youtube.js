@@ -87,4 +87,43 @@ exports.findNightcore = function (message, link)
     });
   }
 }
+
+exports.findVideo = function (message, link)
+{
+  //var link = message.content;
+  isLink = false;
+  if (link.startsWith(ytLink))
+  {
+    //link = link.substring(ytLink.length, link.length);
+    isLink = true;
+  }
+  if (link.startsWith(ytLink2))
+  {
+    //link = link.substring(ytLink2.length, link.length);
+    isLink = true;
+  }
+  if (isLink)
+  {
+    message.channel.send(link);
+  }
+  else
+  {
+    httpGetAsync(url+link, function (resp)
+    {
+      try
+      {
+        console.log("Yt is not link");
+        var videoLink = JSON.parse(resp)["items"][0]["id"]["videoId"];
+        videoLink = ytLink + videoLink;
+        console.log("Found viedo:" + videoLink);
+        message.channel.send(videoLink);
+      } catch (err)
+      {
+        console.log(err);
+        console.log(resp);
+        message.channel.send("No video found");
+      }
+    });
+  }
+}
 //findNightcore("https://www.youtube.com/watch?v=1ekZEVeXwek");
