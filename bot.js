@@ -91,7 +91,7 @@ client.on('message', message => {
     let rand = Math.floor(Math.random()*size);
     //console.log("size:"+size);
     //console.log("rand:"+rand);
-    message.reply("i chose " + args[rand]);
+    message.reply("i choose " + args[rand]);
   }
 });
 

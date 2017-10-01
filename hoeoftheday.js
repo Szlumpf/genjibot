@@ -74,7 +74,17 @@ exports.hoeoftheday = function (message)
     var now = message.createdAt;
     if(now.getFullYear() > hoePickDate.getFullYear())
     {
+      pickHoe(message);
+      newHoePicked = true;
+    }
+    else
+    {
       if (now.getMonth() > hoePickDate.getMonth())
+      {
+        pickHoe(message);
+        newHoePicked = true;
+      }
+      else
       {
         if (now.getDate() > hoePickDate.getDate())
         {
