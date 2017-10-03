@@ -1,7 +1,9 @@
 const formater = require('./formater.js');
-const fs = require('fs');
+//const fs = require('fs');
+const comparator = require('./comparator.js')
 var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 var hoes = [];
+var fileMenagement = process.env.fileMenagement;
 
 exports.setup = function ()
 {
@@ -9,19 +11,25 @@ exports.setup = function ()
   if (err) {
     return console.log(err);
   }*/
-  var fileMenagement = process.env.fileMenagement;
-  httpGetAsync(fileMenagement+"&type=read", function (resp) {
+  httpGetAsync(fileMenagement+"&content=hoes&type=read", function (resp) {
     try
     {
       console.log("Recived:"+resp);
       var hz = formater.argsFromMessage(resp, " ");
       if (hz.length>2)
       {
+        var now = new Date();
         for (var i=0; i<hz.length/3; i++)
         {
-          hoes[hz[i]]=[];
-          hoes[hz[i]].id=hz[i+1];
-          hoes[hz[i]].date=hz[i+2];
+          var date = formater.argsFromMessage(hz[i+2], "-");
+          var hoePickDate = new Date (date[0], date[1], date[2]);
+          if (comparator.compareDates(now, hoePickDate) == 0 )
+          {
+            hoes[hz[i]]=[];
+            hoes[hz[i]].id=hz[i+1];
+            hoes[hz[i]].date=hz[i+2];
+            console.log("Added:" + hz[i] + "+" + hz[i+1] + "+" + hz[i+2]);
+          }
         }
       }
     }catch (err)
@@ -62,9 +70,8 @@ function saveHoes (hoes)
   }
   console.log("The file was saved!");
   });*/
-  var fileMenagement = process.env.fileMenagement;
   console.log("Sending:"+hoesFileContents);
-  httpGetAsync(fileMenagement+"&type=write&data="+hoesFileContents, function (resp) {
+  httpGetAsync(fileMenagement+"&content=hoes&type=write&data="+hoesFileContents, function (resp) {
     try
     {
 
@@ -110,29 +117,13 @@ exports.hoeoftheday = function (message)
   else
   {
     var date = hoes[message.guild.id].date;
-    var date = formater.argsFromMessage(date, "-");
+    date = formater.argsFromMessage(date, "-");
     var hoePickDate = new Date (date[0], date[1], date[2]);
     var now = message.createdAt;
-    if(now.getFullYear() > hoePickDate.getFullYear())
+    if(comparator.compareDates(now, hoePickDate) == 1)
     {
       pickHoe(message);
       newHoePicked = true;
-    }
-    else
-    {
-      if (now.getMonth() > hoePickDate.getMonth())
-      {
-        pickHoe(message);
-        newHoePicked = true;
-      }
-      else
-      {
-        if (now.getDate() > hoePickDate.getDate())
-        {
-          pickHoe(message);
-          newHoePicked = true;
-        }
-      }
     }
   }
 

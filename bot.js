@@ -8,7 +8,7 @@ const hotd = require('./hoeoftheday.js');
 client.on('ready', () => {
   console.log('I am ready!');
   setTimeout(logg, logtime);
-  console.log(reminder.add(5,2));
+  reminder.setup();
   hotd.setup();
 });
 
@@ -108,6 +108,18 @@ client.on('message', message => {
   if (message.content === command)
     hotd.hoeoftheday(message);
 });
+
+client.on('message', message => {
+  let command = "!time";
+  if (message.content === command)
+  {
+    var a = message.createdAt;
+    message.reply(a.getHours() + ":" + a.getMinutes() + "\n" +
+        a.getFullYear() + "-" + a.getMonth() + "-" + a.getDate());
+  }
+});
+
+//client.on()
 
 /*client.on('message', message => {
   if (message.content.substr(0,10).toLowerCase() === '!pickagame')

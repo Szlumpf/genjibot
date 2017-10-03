@@ -55,7 +55,8 @@ exports.argsFromMessage = function (msg, delimiter = " ")
     }
     if((char == delimiter && !quote)|| i+1==msg.length)
     {
-      args[n]=arg;
+      if (arg != "")
+        args[n]=arg;
       n++;
       arg="";
     }
