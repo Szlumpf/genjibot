@@ -69,43 +69,34 @@ function isHour(hour)
 function addReminder(dateString, hourString, responseChannel, reminderMsg)
 {
   let now = responseChannel.createdAt;
-  let userTime = args[1].split(":");
+  let userTime = hourString.split(":");
+  let userDate = dateString.split("-");
   let hours = parseInt(userTime[0]);
   let mins = parseInt(userTime[1]);
   let time1 = hours*60 + mins;
   let time2 = now.getHours()*60 + now.getMinutes();
   let timeDiff = time1 - time2;// - subHours*60;
+  timeDiff = timeDiff * 60 * 1000;
+  let diffDays = 0;
   if (dateString != false)
   {
-
-  }
-  else
-  {
-
+    timeDiff = Math.abs(new Date(parseInt(userDate[0]), parseInt(userDate[1])-1, parseInt(userDate[2]), hours, mins).getTime() - now.getTime());
+    diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
   }
 
-  timeDiff = Math.abs(new Date(parseInt(args[0]), parseInt(args[1]), parseInt(args[2])).getTime() - now.getTime());
-  var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
-  if (timeDiff > 0)
+  if (timeDiff > 1)
   {
-    setTimeout(function() {remind(message, reminderMsg)}, 1000*60*timeDiff);
+    setTimeout(function() {remind(message, reminderMsg)}, (timeDiff);
     if ((hours + "").length == 1)
       hours = "0" + hours;
     if ((mins + "").length == 1)
       mins = "0" + mins;
-    message.reply("Reminder set at " + hours + ":" + mins + " ,which is " + formater.timeStringFromMins(timeDiff) + "from now, with message : " + reminderMsg);
+    message.reply("Reminder set at " + hours + ":" + mins + " on " + userDate + " ,which is " + formater.timeStringFromMins(Math.ceil(timeDiff)) + "from now, with message : " + reminderMsg);
   }
   else
   {
-    setTimeout(function() {remind(message, reminderMsg)}, ((24*60)-(timeDiff))*1000*60);
-    if ((hours + "").length == 1)
-      hours = "0" + hours;
-    if ((mins + "").length == 1)
-      mins = "0" + mins;
-    message.reply("Reminder set at " + hours + ":" + mins + " tomorrow ,which is " + formater.timeStringFromMins((24*60)-timeDiff) + "from now, with message : " + reminderMsg);
+    // wrong time time
   }
-  //save reminder
-  //httpGetAsync(fileMenagement + "content=reminder")
 }
 
 exports.setReminder = function(message)
