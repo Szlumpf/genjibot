@@ -11,6 +11,11 @@ exports.setup = function ()
   if (err) {
     return console.log(err);
   }*/
+  readHoesFromJson();
+}
+
+function readHoes()
+{
   httpGetAsync(fileMenagement+"&content=hoes&type=read", function (resp) {
     try
     {
@@ -30,6 +35,36 @@ exports.setup = function ()
             hoes[hz[i]].date=hz[i+2];
             console.log("Added:" + hz[i] + "+" + hz[i+1] + "+" + hz[i+2]);
           }
+        }
+      }
+    }catch (err)
+    {
+      console.log(err);
+      hoes=[];
+    }
+
+  });
+}
+
+function readHoesFromJson()
+{
+  httpGetAsync(fileMenagement+"&content=hoes&type=read", function (resp) {
+    try
+    {
+      console.log("Recived:"+resp);
+      var hz = JSON.parse(resp);
+      var now = new Date();
+      for (var i=0; i<hz.length; i++)
+      {
+        var date = hz[i].date;
+        date = formater.argsFromMessage(hz[i].date, "-");
+        var hoePickDate = new Date (date[0], date[1], date[2]);
+        if (comparator.compareDates(now, hoePickDate) == 0 )
+        {
+          hoes[hz[i].channel]=[];
+          hoes[hz[i].channel].id=hz[i].hoe;
+          hoes[hz[i].channel].date=hz[i].date;
+          console.log("Added:" + hz[i].channel + "+" + hz[i].hoe + "+" + hz[i].date);
         }
       }
     }catch (err)
@@ -83,6 +118,39 @@ function saveHoes (hoes)
   });
 }
 
+function saveHoesAsJson (hoes)
+{
+  var hoesFileContents = "[";
+  var delimiter = "+";
+  for (var hoe in hoes) {
+    hoesFileContents += "{";
+    hoesFileContents += "\"channel\":" + "\"" + hoe + "\",";
+    hoesFileContents += "\"hoe\":" + "\"" + hoes[hoe].id + "\",";
+    hoesFileContents += "\"date\":" + "\"" + hoes[hoe].date + "\"";
+    hoesFileContents += "},";
+  }
+  hoesFileContents = hoesFileContents.slice(0, -1);
+  hoesFileContents += "]";
+  /*
+  fs.writeFile("./hoes.txt", hoesFileContents, function(err) {
+  if(err) {
+      return console.log(err);
+  }
+  console.log("The file was saved!");
+  });*/
+  console.log("Sending:"+hoesFileContents);
+  httpGetAsync(fileMenagement+"&content=hoes&type=write&data="+hoesFileContents, function (resp) {
+    try
+    {
+
+    }catch (err)
+    {
+      console.log(err);
+    }
+
+  });
+}
+
 function pickHoe(message)
 {
   var guildMembers = message.guild.members.array();
@@ -103,7 +171,7 @@ function pickHoe(message)
   hoes[message.guild.id] = [];
   hoes[message.guild.id].id = hoe.id;
   hoes[message.guild.id].date = msgDate.getFullYear() + "-" + msgDate.getMonth() + "-"  + msgDate.getDate();
-  saveHoes(hoes);
+  saveHoesAsJson(hoes);
 }
 
 exports.hoeoftheday = function (message)

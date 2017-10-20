@@ -52,7 +52,7 @@ function isHour(hour)
     if (hour.length >= 4 && hour.length <= 5)
     {
       var hourr = formater.argsFromMessage(date, ":");
-      if (!isNaN(parseInt(hourr[0])) && !isNaN(parseInt(hourr[1]))))
+      if (!isNaN(parseInt(hourr[0])) && !isNaN(parseInt(hourr[1])))
         if (hours <= 23 && hours >= 0 && mins <= 59 && mins >= 0)
           return true;
         else return false;
@@ -96,7 +96,7 @@ exports.setReminder = function(message)
       let time2 = now.getHours()*60 + now.getMinutes();
       let timeDiff = time1 - time2;// - subHours*60;
 
-      var timeDiff = Math.abs(new Date(parseInt(args[0]), parseInt(args[1]), parseInt(args[2])).getTime() - now.getTime());
+      /*var*/ timeDiff = Math.abs(new Date(parseInt(args[0]), parseInt(args[1]), parseInt(args[2])).getTime() - now.getTime());
       var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
 
       if (diffDays > 0)
@@ -148,7 +148,7 @@ exports.setReminder = function(message)
     {
       message.reply("Wrong time");
     }
-    else ()
+    else //()
     {
       if (timeDiff > 0)
       {
