@@ -12,19 +12,15 @@ client.on('ready', () => {
   hotd.setup();
 });
 
-var logtime = 1000 * 60 * 1;
-var timediff = logtime/(1000*60);
-var minutes = 0;
-function logg() {
-  minutes = timediff + minutes;
-  //console.log("Bot working for " + minutes + " minutes");
-  setTimeout(logg, logtime);
-}
+const botStart = new Date();
 
 client.on('message', message => {
   if (message.content === '!uptime')
   {
-    message.reply("Working for: " + formater.timeStringFromMins(minutes));
+    let milis = (new Date()).getTime()
+    milis -= botStart.getTime()
+    let mins = Math.round(milis/(1000*60))
+    message.reply("Working for: " + formater.timeStringFromMins(mins));
   }
 });
 

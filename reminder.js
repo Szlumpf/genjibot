@@ -86,7 +86,7 @@ function addReminder(dateString, hourString, responseChannel, reminderMsg)
 
   if (timeDiff > 1)
   {
-    setTimeout(function() {remind(message, reminderMsg)}, (timeDiff);
+    setTimeout(function() {remind(message, reminderMsg)}, (timeDiff));
     if ((hours + "").length == 1)
       hours = "0" + hours;
     if ((mins + "").length == 1)
